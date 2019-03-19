@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "mp4-err.h"
 
 ExitOnErr(return_var_name, err_code) return_var_name = err_code; goto EXIT;
 ExitOnNull(return_var_name, x) if (NULL == x) \

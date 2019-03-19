@@ -153,13 +153,5 @@ BOX_T BOXES[] = {
         BOX_INIT(pitm, 0) 	
 };
 
-typedef enum 
-{
-	MP4_ERR_OK = 0,
-	MP4_FAILED = -1,
-	MP4_INVALID_PARAM =-2,
-	MP4_INVALID_VALUE =-3,
-	ERR_T_MAX =-4
-}ERR_T;
 
 #endif /*__BOXES_H__*/
