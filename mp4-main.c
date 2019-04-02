@@ -7,14 +7,18 @@
 #include <sys/types.h>
 #include <sys/mman.h>
 
+#include "box-parser.h"
+
 typedef	char	*caddr_t;
 
 int main(int argc, char *argv[])
 {
 	int fd;
 	int page_size;
+	void *mmap_ret;
 	uint8_t *fptr = NULL;
 	struct stat sbuf;
+
 
 	MP4_ASSERT(2 == argc, "Usage: <filename>\n", return -1);
 	fd = open(argv[1], O_RDONLY);
@@ -24,13 +28,14 @@ int main(int argc, char *argv[])
 		perror("stat");
 		return -1;
 	}
-
-	if((fptr = (uint8_t *)mmap((caddr_t)0, sbuf.st_size, PROT_READ, MAP_SHARED, fd, 0)) == (caddr_t)(-1)) {
+	mmap_ret = mmap((caddr_t)0, sbuf.st_size, PROT_READ, MAP_SHARED, fd, 0);
+	if(mmap_ret == (void *)(-1)) {
 		perror("mmap");
 		return -1;
 	}
-
+	
 	/*ready to use mmaped file.*/
+	box_parser(mmap_ret, sbuf.st_size);
 
 	return 0;
 }
